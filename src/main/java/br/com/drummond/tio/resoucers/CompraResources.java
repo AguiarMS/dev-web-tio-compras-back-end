@@ -49,8 +49,8 @@ public class CompraResources {
 		} else {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Não existe nenhum registro de compra neste ID.");
 		}
-
 	}
+	
 
 	@PostMapping
 	public ResponseEntity<Compra> registrarCompra(@Valid @RequestBody Compra compra) {
