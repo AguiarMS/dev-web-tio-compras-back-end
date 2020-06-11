@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -51,12 +52,26 @@ public class CompraResources {
 		}
 	}
 	
-
+	
+	@GetMapping("/buscar-produto")
+	public ResponseEntity<?> pegarArtigosPeloTituloOuArea(@RequestParam("search") String search) {
+		List<Compra> compra = cRepository.findByProduto(search);
+		if(compra.isEmpty()) {
+			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Não existem produtos registrados com essa procura!");
+		}else {
+			return ResponseEntity.ok(compra);
+		}
+	}
+	
+	
+	
+	
 	@PostMapping
 	public ResponseEntity<Compra> registrarCompra(@Valid @RequestBody Compra compra) {
 		Compra compraCadastro = cRepository.save(compra);
 		return ResponseEntity.status(HttpStatus.CREATED).body(compraCadastro);
 	}
+	
 	
 
 	@PutMapping
