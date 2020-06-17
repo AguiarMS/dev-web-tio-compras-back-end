@@ -55,14 +55,13 @@ public class CompraResources {
 	
 	@GetMapping("/buscar-produto")
 	public ResponseEntity<?> pegarArtigosPeloTituloOuArea(@RequestParam("search") String search) {
-		List<Compra> compra = cRepository.findByProduto(search);
+		List<Compra> compra = cRepository.findByProdutoContaining(search);
 		if(compra.isEmpty()) {
 			throw new ResponseStatusException(HttpStatus.NO_CONTENT, "Não existem produtos registrados com essa procura!");
 		}else {
 			return ResponseEntity.ok(compra);
 		}
 	}
-	
 	
 	
 	
@@ -74,7 +73,7 @@ public class CompraResources {
 	
 	
 
-	@PutMapping
+	@PutMapping("/{id}")
 	public ResponseEntity<Compra> alterarCompra(@PathVariable Integer id, @Valid @RequestBody Compra compra)
 			throws IllegalArgumentException, IllegalAccessException {
 		Optional<Compra> compraExistente = cRepository.findById(id);

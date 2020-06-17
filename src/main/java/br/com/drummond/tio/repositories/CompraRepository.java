@@ -9,9 +9,7 @@ import br.com.drummond.tio.model.Compra;
 
 public interface CompraRepository extends JpaRepository<Compra, Integer> {
 	
-	List<Compra> findByProduto(String produto);
-	//Optional<Compra> findByUnidadeMedida(String unidadeMedida);
-	//Optional<Compra> findByQuandidade(int quantidade);
-	//Optional<Compra> findByCategoria(String categoria);
+	List<Compra> findByProdutoContaining(String produto);
+	
 
 }
